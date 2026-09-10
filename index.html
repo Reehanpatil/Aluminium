@@ -1,1 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shree Aluminium &amp; Plywood Works</title>
+<meta name="description" content="Aluminium windows, sliding doors, partitions and plywood/laminate fabrication work.">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink:   '#1B1F1C',
+          paper: '#F4F1E8',
+          steel: '#8A9599',
+          wood:  '#A9662E',
+          slate: '#2B4257',
+        },
+        fontFamily: {
+          display: ['"Big Shoulders Display"', 'sans-serif'],
+          body: ['"IBM Plex Sans"', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'IBM Plex Sans', sans-serif; }
+  .font-display { font-family: 'Big Shoulders Display', sans-serif; }
+
+  .clip-corner {
+    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+  }
+  .clip-corner-sm {
+    clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+  }
+
+  #mobileNav { transform: translateY(-100%); transition: transform .35s cubic-bezier(.4,0,.2,1); }
+  #mobileNav.open { transform: translateY(0); }
+  #navBackdrop { opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+  #navBackdrop.open { opacity: 1; pointer-events: auto; }
+
+  .extrusion-lines {
+    background-image: repeating-linear-gradient(115deg, rgba(43,66,87,0.08) 0px, rgba(43,66,87,0.08) 2px, transparent 2px, transparent 34px);
+  }
+
+  .fade-in { animation: fadeIn .6s ease both; }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
+
+  :focus-visible { outline: 2px solid #A9662E; outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    #mobileNav, #navBackdrop, .fade-in { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+
+<body class="bg-paper text-ink font-body antialiased">
+
+<!-- Site data — the "database". Admin panel rewrites this block via the GitHub Contents API. -->
+<script id="site-data" type="application/json">
+{
+  "shop": {
+    "name": "Shree Aluminium & Plywood Works",
+    "tagline": "Aluminium windows, doors &amp; plywood fabrication — built to measure",
+    "phone": "+919876543210",
+    "whatsapp": "919876543210",
+    "address": "Main Road, Khanagaon, Gokak Taluk, Belagavi, Karnataka",
+    "hours": "Mon – Sat, 9:30 AM – 7:30 PM",
+    "mapEmbedUrl": ""
+  },
+  "stats": [
+    { "value": "12+", "label": "Years in business" },
+    { "value": "600+", "label": "Projects completed" },
+    { "value": "100%", "label": "Site measurement" },
+    { "value": "48 hr", "label": "Quote turnaround" }
+  ],
+  "services": [
+    { "icon": "layout-panel-left", "title": "Aluminium Windows", "desc": "Sliding, casement and fixed windows in standard and custom sections." },
+    { "icon": "door-open", "title": "Sliding &amp; Folding Doors", "desc": "Smooth-glide aluminium doors for homes, shops and balconies." },
+    { "icon": "square-dashed-mouse-pointer", "title": "Partitions &amp; Glass Work", "desc": "Office partitions, shop fronts and glass panelling." },
+    { "icon": "trees", "title": "Plywood &amp; Laminate Work", "desc": "Flawood, MDF and laminate work for interiors, wardrobes and counters." },
+    { "icon": "grid-3x3", "title": "False Ceiling", "desc": "Gypsum and PVC false ceiling for homes and shops." },
+    { "icon": "ruler", "title": "Modular Fabrication", "desc": "Custom fabrication to exact site measurements, delivered on schedule." }
+  ],
+  "process": [
+    { "title": "Enquiry &amp; Site Visit", "desc": "Call or WhatsApp us your requirement — we visit your site to understand the scope." },
+    { "title": "Measurement &amp; Design", "desc": "Precise measurements taken on site, material and finish finalised with you." },
+    { "title": "Fabrication", "desc": "Work is fabricated at our workshop to your exact specifications." },
+    { "title": "Installation &amp; Handover", "desc": "Clean, on-time installation at your site with a final walkthrough." }
+  ],
+  "gallery": [],
+  "testimonials": [
+    { "name": "Basavaraj P.", "text": "Windows fit perfectly on the first try, no adjustments needed. Good rate too." },
+    { "name": "Suresh Kulkarni", "text": "Plywood wardrobe work was neat and finished on the date they promised." }
+  ]
+}
+</script>
+
+<!-- ============ NAV ============ -->
+<header class="sticky top-0 z-40 bg-paper/95 backdrop-blur border-b border-ink/10">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between">
+    <a href="#home" class="flex items-center gap-3">
+      <span class="w-10 h-10 bg-slate flex items-center justify-center clip-corner-sm">
+        <i data-lucide="hammer" class="w-5 h-5 text-paper"></i>
+      </span>
+      <span class="leading-tight">
+        <span id="navShopName" class="block font-display font-800 text-xl tracking-tight text-ink">Shree Aluminium &amp; Plywood Works</span>
+        <span class="block text-[11px] text-steel">Aluminium &amp; Plywood Fabrication</span>
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8 text-[15px] font-medium">
+      <a href="#services" class="hover:text-wood transition-colors">Services</a>
+      <a href="#gallery" class="hover:text-wood transition-colors">Gallery</a>
+      <a href="#process" class="hover:text-wood transition-colors">Process</a>
+      <a href="#contact" class="hover:text-wood transition-colors">Contact</a>
+      <a id="navWhatsapp" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-wood text-paper px-5 py-2.5 clip-corner-sm font-semibold hover:bg-ink transition-colors">
+        <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Us
+      </a>
+    </nav>
+
+    <button id="menuBtn" aria-label="Open menu" aria-expanded="false" class="md:hidden w-11 h-11 flex items-center justify-center border border-ink/15">
+      <i data-lucide="menu" class="w-6 h-6"></i>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile nav backdrop + panel -->
+<div id="navBackdrop" class="fixed inset-0 bg-ink/50 z-[90] md:hidden"></div>
+<div id="mobileNav" class="fixed top-0 inset-x-0 z-[100] bg-paper border-b border-ink/10 shadow-xl md:hidden">
+  <div class="px-5 pt-6 pb-8 flex flex-col gap-1">
+    <div class="flex items-center justify-between mb-4">
+      <span class="font-display font-800 text-lg">Menu</span>
+      <button id="closeMenuBtn" aria-label="Close menu" class="w-10 h-10 flex items-center justify-center border border-ink/15">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <a href="#services" class="mobile-link py-3.5 border-b border-ink/10 text-lg font-medium">Services</a>
+    <a href="#gallery" class="mobile-link py-3.5 border-b border-ink/10 text-lg font-medium">Gallery</a>
+    <a href="#process" class="mobile-link py-3.5 border-b border-ink/10 text-lg font-medium">Process</a>
+    <a href="#contact" class="mobile-link py-3.5 border-b border-ink/10 text-lg font-medium">Contact</a>
+    <div class="flex gap-3 mt-5">
+      <a id="mobileCall" href="#" class="flex-1 inline-flex items-center justify-center gap-2 border border-ink/20 py-3 clip-corner-sm font-semibold">
+        <i data-lucide="phone" class="w-4 h-4"></i> Call
+      </a>
+      <a id="mobileWhatsapp" href="#" target="_blank" rel="noopener" class="flex-1 inline-flex items-center justify-center gap-2 bg-wood text-paper py-3 clip-corner-sm font-semibold">
+        <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section id="home" class="relative overflow-hidden">
+  <div class="absolute inset-0 extrusion-lines"></div>
+  <div class="relative max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-24 grid md:grid-cols-2 gap-12 items-center">
+    <div class="fade-in">
+      <h1 class="font-display font-900 text-[13vw] sm:text-6xl leading-[0.95] tracking-tight text-ink">
+        Windows &amp; interiors,<br><span class="text-wood">measured right.</span>
+      </h1>
+      <p id="heroTagline" class="mt-6 text-lg text-ink/70 max-w-md">Aluminium windows, doors &amp; plywood fabrication — built to measure.</p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a id="heroCall" href="#" class="inline-flex items-center gap-2 bg-ink text-paper px-6 py-3.5 clip-corner font-semibold hover:bg-slate transition-colors">
+          <i data-lucide="phone" class="w-4 h-4"></i> Call Now
+        </a>
+        <a id="heroWhatsapp" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-wood text-paper px-6 py-3.5 clip-corner font-semibold hover:bg-ink transition-colors">
+          <i data-lucide="message-circle" class="w-4 h-4"></i> Get a Quote
+        </a>
+      </div>
+      <div id="statsRow" class="mt-12 grid grid-cols-4 gap-4 max-w-md"></div>
+    </div>
+    <div class="relative hidden md:block">
+      <div class="aspect-[4/5] bg-slate clip-corner flex items-center justify-center relative overflow-hidden">
+        <svg viewBox="0 0 200 250" class="w-2/3 opacity-90" fill="none" stroke="#F4F1E8" stroke-width="2">
+          <rect x="20" y="20" width="160" height="210" />
+          <line x1="100" y1="20" x2="100" y2="230" />
+          <line x1="20" y1="125" x2="180" y2="125" />
+          <line x1="20" y1="20" x2="180" y2="230" stroke-opacity="0.3" />
+        </svg>
+        <span class="absolute bottom-4 left-4 text-paper/70 text-xs tracking-wide">Add project photos via Admin Panel</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="max-w-6xl mx-auto px-5 sm:px-8 py-20">
+  <div class="max-w-lg">
+    <h2 class="font-display font-800 text-4xl sm:text-5xl leading-tight">What we build</h2>
+    <p class="mt-4 text-ink/70">From a single window to full shop-front fabrication — measured, made and installed by us.</p>
+  </div>
+  <div id="servicesGrid" class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery" class="bg-ink text-paper py-20">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div class="flex items-end justify-between flex-wrap gap-4">
+      <h2 class="font-display font-800 text-4xl sm:text-5xl">Recent work</h2>
+      <span class="text-steel text-sm">Tap a photo to view</span>
+    </div>
+    <div id="galleryGrid" class="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
+    <p id="galleryEmpty" class="hidden mt-10 text-steel">Project photos coming soon.</p>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" class="hidden fixed inset-0 z-[110] bg-ink/95 items-center justify-center p-6">
+  <button id="lightboxClose" aria-label="Close" class="absolute top-6 right-6 w-11 h-11 flex items-center justify-center border border-paper/30 text-paper">
+    <i data-lucide="x" class="w-5 h-5"></i>
+  </button>
+  <img id="lightboxImg" src="" alt="" class="max-h-[85vh] max-w-full object-contain">
+</div>
+
+<!-- ============ PROCESS ============ -->
+<section id="process" class="max-w-6xl mx-auto px-5 sm:px-8 py-20">
+  <h2 class="font-display font-800 text-4xl sm:text-5xl max-w-lg">How a project runs</h2>
+  <div id="processList" class="mt-12 grid md:grid-cols-4 gap-8"></div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="bg-steel/10 py-20">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <h2 class="font-display font-800 text-4xl sm:text-5xl max-w-lg">What customers say</h2>
+    <div id="testimonialsGrid" class="mt-10 grid sm:grid-cols-2 gap-5"></div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="max-w-6xl mx-auto px-5 sm:px-8 py-20 grid md:grid-cols-2 gap-12">
+  <div>
+    <h2 class="font-display font-800 text-4xl sm:text-5xl">Get in touch</h2>
+    <div class="mt-8 space-y-5 text-ink/80">
+      <div class="flex items-start gap-3">
+        <i data-lucide="map-pin" class="w-5 h-5 mt-0.5 text-wood shrink-0"></i>
+        <span id="contactAddress">Main Road, Khanagaon, Gokak Taluk, Belagavi, Karnataka</span>
+      </div>
+      <div class="flex items-start gap-3">
+        <i data-lucide="phone" class="w-5 h-5 mt-0.5 text-wood shrink-0"></i>
+        <a id="contactPhone" href="#" class="hover:text-wood">+91 98765 43210</a>
+      </div>
+      <div class="flex items-start gap-3">
+        <i data-lucide="clock" class="w-5 h-5 mt-0.5 text-wood shrink-0"></i>
+        <span id="contactHours">Mon – Sat, 9:30 AM – 7:30 PM</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-slate text-paper p-7 clip-corner">
+    <h3 class="font-display font-700 text-2xl">Quick enquiry</h3>
+    <p class="text-paper/70 text-sm mt-1">This opens WhatsApp with your details filled in — no form gets lost.</p>
+    <form id="enquiryForm" class="mt-6 space-y-4">
+      <input required id="fName" type="text" placeholder="Your name" class="w-full bg-paper/10 border border-paper/25 px-4 py-3 placeholder:text-paper/50 focus:bg-paper/15 outline-none">
+      <select id="fType" class="w-full bg-paper/10 border border-paper/25 px-4 py-3 text-paper/90 outline-none">
+        <option class="text-ink">Aluminium Windows</option>
+        <option class="text-ink">Sliding / Folding Doors</option>
+        <option class="text-ink">Partitions / Glass Work</option>
+        <option class="text-ink">Plywood / Laminate Work</option>
+        <option class="text-ink">False Ceiling</option>
+        <option class="text-ink">Other</option>
+      </select>
+      <textarea id="fMsg" rows="3" placeholder="Brief details (size, quantity, location)" class="w-full bg-paper/10 border border-paper/25 px-4 py-3 placeholder:text-paper/50 focus:bg-paper/15 outline-none"></textarea>
+      <button type="submit" class="w-full inline-flex items-center justify-center gap-2 bg-wood py-3.5 font-semibold hover:bg-paper hover:text-ink transition-colors">
+        <i data-lucide="send" class="w-4 h-4"></i> Send on WhatsApp
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-ink text-paper/60 py-10">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 flex flex-wrap items-center justify-between gap-4 text-sm">
+    <span id="footerName">Shree Aluminium &amp; Plywood Works</span>
+    <a href="#admin" class="opacity-30 hover:opacity-70">·</a>
+  </div>
+</footer>
+
+<!-- ============ ADMIN PANEL ============ -->
+<div id="adminPanel" class="hidden fixed inset-0 z-[200] bg-ink text-paper overflow-y-auto">
+  <div class="max-w-2xl mx-auto px-5 sm:px-8 py-12">
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="font-display font-800 text-3xl">Admin panel</h2>
+      <a href="#home" class="text-sm text-steel hover:text-paper">Close</a>
+    </div>
+
+    <div id="adminGate">
+      <p class="text-paper/70 text-sm mb-6">Connect to GitHub to edit this site's content. Your token is kept only for this browser tab.</p>
+      <div class="space-y-3">
+        <input id="ghToken" type="password" placeholder="GitHub personal access token" class="w-full bg-paper/10 border border-paper/25 px-4 py-3 outline-none placeholder:text-paper/40">
+        <div class="grid grid-cols-2 gap-3">
+          <input id="ghOwner" type="text" placeholder="Repo owner (username)" class="bg-paper/10 border border-paper/25 px-4 py-3 outline-none placeholder:text-paper/40">
+          <input id="ghRepo" type="text" placeholder="Repo name" class="bg-paper/10 border border-paper/25 px-4 py-3 outline-none placeholder:text-paper/40">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <input id="ghPath" type="text" value="index.html" placeholder="File path" class="bg-paper/10 border border-paper/25 px-4 py-3 outline-none placeholder:text-paper/40">
+          <input id="ghBranch" type="text" value="main" placeholder="Branch" class="bg-paper/10 border border-paper/25 px-4 py-3 outline-none placeholder:text-paper/40">
+        </div>
+        <button id="ghConnectBtn" class="w-full bg-wood py-3.5 font-semibold hover:bg-paper hover:text-ink transition-colors">Connect</button>
+        <p id="ghStatus" class="text-sm text-steel"></p>
+      </div>
+      <div class="mt-6 text-xs text-paper/40 leading-relaxed">
+        Token needs "repo" (or "contents: write" for fine-grained) access on this repository only. Generate one at
+        github.com → Settings → Developer settings → Personal access tokens.
+      </div>
+    </div>
+
+    <div id="adminEditor" class="hidden space-y-10">
+      <section>
+        <h3 class="font-display font-700 text-xl mb-3">Shop info</h3>
+        <div class="space-y-3">
+          <input id="edName" type="text" placeholder="Shop name" class="w-full bg-paper/10 border border-paper/25 px-4 py-3 outline-none">
+          <input id="edTagline" type="text" placeholder="Tagline" class="w-full bg-paper/10 border border-paper/25 px-4 py-3 outline-none">
+          <input id="edPhone" type="text" placeholder="Phone e.g. +919876543210" class="w-full bg-paper/10 border border-paper/25 px-4 py-3 outline-none">
+          <input id="edWhatsapp" type="text" placeholder="WhatsApp number e.g. 919876543210" class="w-full bg-paper/10 border border-paper/25 px-4 py-3 outline-none">
+          <input id="edAddress" type="text" placeholder="Address" class="w-full bg-paper/10 border border-paper/25 px-4 py-3 outline-none">
+          <input id="edHours" type="text" placeholder="Hours" class="w-full bg-paper/10 border border-paper/25 px-4 py-3 outline-none">
+        </div>
+      </section>
+
+      <section>
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-display font-700 text-xl">Gallery photos</h3>
+          <button id="addGalleryBtn" class="text-sm text-wood hover:text-paper">+ Add photo URL</button>
+        </div>
+        <p class="text-xs text-paper/40 mb-3">Upload your photo to Cloudinary (or any image host) first, then paste the URL here — keeps the site fast.</p>
+        <div id="galleryEditList" class="space-y-2"></div>
+      </section>
+
+      <section>
+        <button id="saveBtn" class="w-full bg-wood py-4 font-semibold text-lg hover:bg-paper hover:text-ink transition-colors">Save &amp; publish</button>
+        <p id="saveStatus" class="text-sm text-steel mt-3"></p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const DATA = JSON.parse(document.getElementById('site-data').textContent);
+
+  // ---------- render helpers ----------
+  const waLink = (num, text) => `https://wa.me/${num}?text=${encodeURIComponent(text || '')}`;
+
+  function renderStatic() {
+    document.title = DATA.shop.name;
+    document.getElementById('navShopName').textContent = DATA.shop.name;
+    document.getElementById('footerName').textContent = DATA.shop.name;
+    document.getElementById('heroTagline').innerHTML = DATA.shop.tagline;
+    document.getElementById('contactAddress').textContent = DATA.shop.address;
+    document.getElementById('contactHours').textContent = DATA.shop.hours;
+
+    const contactPhone = document.getElementById('contactPhone');
+    contactPhone.textContent = DATA.shop.phone;
+    contactPhone.href = `tel:${DATA.shop.phone}`;
+
+    const defaultMsg = `Hi, I'm interested in your aluminium/plywood work.`;
+    ['navWhatsapp', 'heroWhatsapp', 'mobileWhatsapp'].forEach(id => {
+      document.getElementById(id).href = waLink(DATA.shop.whatsapp, defaultMsg);
+    });
+    document.getElementById('heroCall').href = `tel:${DATA.shop.phone}`;
+    document.getElementById('mobileCall').href = `tel:${DATA.shop.phone}`;
+  }
+
+  function renderStats() {
+    const el = document.getElementById('statsRow');
+    el.innerHTML = DATA.stats.map(s => `
+      <div>
+        <div class="font-display font-800 text-2xl text-wood">${s.value}</div>
+        <div class="text-[11px] text-ink/60 leading-tight mt-0.5">${s.label}</div>
+      </div>`).join('');
+  }
+
+  function renderServices() {
+    const el = document.getElementById('servicesGrid');
+    el.innerHTML = DATA.services.map(s => `
+      <div class="clip-corner-sm border border-ink/10 bg-white/40 p-6 hover:border-wood/50 transition-colors">
+        <i data-lucide="${s.icon}" class="w-7 h-7 text-wood"></i>
+        <h3 class="font-display font-700 text-xl mt-4">${s.title}</h3>
+        <p class="text-ink/65 text-sm mt-2 leading-relaxed">${s.desc}</p>
+      </div>`).join('');
+  }
+
+  function renderGallery() {
+    const grid = document.getElementById('galleryGrid');
+    const empty = document.getElementById('galleryEmpty');
+    if (!DATA.gallery.length) {
+      grid.innerHTML = '';
+      empty.classList.remove('hidden');
+      return;
+    }
+    empty.classList.add('hidden');
+    grid.innerHTML = DATA.gallery.map((g, i) => `
+      <button class="gallery-item aspect-square overflow-hidden bg-paper/5" data-idx="${i}">
+        <img src="${g.url}" alt="${g.caption || ''}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" loading="lazy">
+      </button>`).join('');
+
+    grid.querySelectorAll('.gallery-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = DATA.gallery[+btn.dataset.idx];
+        document.getElementById('lightboxImg').src = item.url;
+        document.getElementById('lightboxImg').alt = item.caption || '';
+        const lb = document.getElementById('lightbox');
+        lb.classList.remove('hidden');
+        lb.classList.add('flex');
+      });
+    });
+  }
+
+  function renderProcess() {
+    const el = document.getElementById('processList');
+    el.innerHTML = DATA.process.map((p, i) => `
+      <div>
+        <div class="font-display font-900 text-4xl text-steel/40">${String(i + 1).padStart(2, '0')}</div>
+        <h3 class="font-display font-700 text-lg mt-2">${p.title}</h3>
+        <p class="text-ink/60 text-sm mt-2 leading-relaxed">${p.desc}</p>
+      </div>`).join('');
+  }
+
+  function renderTestimonials() {
+    const el = document.getElementById('testimonialsGrid');
+    el.innerHTML = DATA.testimonials.map(t => `
+      <div class="bg-white/50 border border-ink/10 p-6 clip-corner-sm">
+        <i data-lucide="quote" class="w-5 h-5 text-wood"></i>
+        <p class="mt-3 text-ink/75 italic">"${t.text}"</p>
+        <p class="mt-3 text-sm font-semibold">— ${t.name}</p>
+      </div>`).join('');
+  }
+
+  function renderAll() {
+    renderStatic();
+    renderStats();
+    renderServices();
+    renderGallery();
+    renderProcess();
+    renderTestimonials();
+    lucide.createIcons();
+  }
+
+  renderAll();
+
+  // ---------- mobile nav ----------
+  const menuBtn = document.getElementById('menuBtn');
+  const closeMenuBtn = document.getElementById('closeMenuBtn');
+  const mobileNav = document.getElementById('mobileNav');
+  const navBackdrop = document.getElementById('navBackdrop');
+  let navOpen = false;
+
+  function openNav() {
+    mobileNav.classList.add('open');
+    navBackdrop.classList.add('open');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    navOpen = true;
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav() {
+    mobileNav.classList.remove('open');
+    navBackdrop.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    navOpen = false;
+    document.body.style.overflow = '';
+  }
+  menuBtn.addEventListener('click', (e) => { e.stopPropagation(); navOpen ? closeNav() : openNav(); });
+  closeMenuBtn.addEventListener('click', closeNav);
+  navBackdrop.addEventListener('click', closeNav);
+  document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', closeNav));
+  document.addEventListener('click', (e) => {
+    if (navOpen && !mobileNav.contains(e.target) && e.target !== menuBtn && !menuBtn.contains(e.target)) closeNav();
+  });
+  window.addEventListener('scroll', () => { if (navOpen) closeNav(); }, { passive: true });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && navOpen) closeNav(); });
+
+  // ---------- lightbox ----------
+  const lightbox = document.getElementById('lightbox');
+  document.getElementById('lightboxClose').addEventListener('click', () => {
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+  });
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) { lightbox.classList.add('hidden'); lightbox.classList.remove('flex'); }
+  });
+
+  // ---------- enquiry form -> WhatsApp ----------
+  document.getElementById('enquiryForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('fName').value.trim();
+    const type = document.getElementById('fType').value;
+    const msg = document.getElementById('fMsg').value.trim();
+    const text = `Hi, I'm ${name}. I'm interested in: ${type}. ${msg}`;
+    window.open(waLink(DATA.shop.whatsapp, text), '_blank');
+  });
+
+  // ---------- admin route ----------
+  const adminPanel = document.getElementById('adminPanel');
+  function checkRoute() {
+    if (location.hash === '#admin') {
+      adminPanel.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    } else {
+      adminPanel.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  }
+  window.addEventListener('hashchange', checkRoute);
+  checkRoute();
+
+  // ---------- admin: GitHub connect + edit + save ----------
+  let gh = null; // { token, owner, repo, path, branch, sha }
+  let workingData = null;
+
+  function fillEditorFromData() {
+    document.getElementById('edName').value = workingData.shop.name;
+    document.getElementById('edTagline').value = workingData.shop.tagline;
+    document.getElementById('edPhone').value = workingData.shop.phone;
+    document.getElementById('edWhatsapp').value = workingData.shop.whatsapp;
+    document.getElementById('edAddress').value = workingData.shop.address;
+    document.getElementById('edHours').value = workingData.shop.hours;
+    renderGalleryEditList();
+  }
+
+  function renderGalleryEditList() {
+    const list = document.getElementById('galleryEditList');
+    list.innerHTML = workingData.gallery.map((g, i) => `
+      <div class="flex gap-2" data-i="${i}">
+        <input type="text" value="${g.url}" class="gal-url flex-1 bg-paper/10 border border-paper/25 px-3 py-2 text-sm outline-none" placeholder="Image URL">
+        <input type="text" value="${g.caption || ''}" class="gal-caption w-32 bg-paper/10 border border-paper/25 px-3 py-2 text-sm outline-none" placeholder="Caption">
+        <button class="gal-remove w-9 text-paper/50 hover:text-wood">✕</button>
+      </div>`).join('');
+    list.querySelectorAll('.gal-remove').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const i = +e.target.closest('[data-i]').dataset.i;
+        workingData.gallery.splice(i, 1);
+        renderGalleryEditList();
+      });
+    });
+  }
+
+  document.getElementById('addGalleryBtn').addEventListener('click', () => {
+    workingData.gallery.push({ url: '', caption: '' });
+    renderGalleryEditList();
+  });
+
+  function collectEditorIntoData() {
+    workingData.shop.name = document.getElementById('edName').value.trim();
+    workingData.shop.tagline = document.getElementById('edTagline').value.trim();
+    workingData.shop.phone = document.getElementById('edPhone').value.trim();
+    workingData.shop.whatsapp = document.getElementById('edWhatsapp').value.trim();
+    workingData.shop.address = document.getElementById('edAddress').value.trim();
+    workingData.shop.hours = document.getElementById('edHours').value.trim();
+    workingData.gallery = Array.from(document.querySelectorAll('#galleryEditList > div')).map(row => ({
+      url: row.querySelector('.gal-url').value.trim(),
+      caption: row.querySelector('.gal-caption').value.trim(),
+    })).filter(g => g.url);
+  }
+
+  document.getElementById('ghConnectBtn').addEventListener('click', async () => {
+    const status = document.getElementById('ghStatus');
+    const token = document.getElementById('ghToken').value.trim();
+    const owner = document.getElementById('ghOwner').value.trim();
+    const repo = document.getElementById('ghRepo').value.trim();
+    const path = document.getElementById('ghPath').value.trim() || 'index.html';
+    const branch = document.getElementById('ghBranch').value.trim() || 'main';
+    if (!token || !owner || !repo) { status.textContent = 'Fill token, owner and repo.'; return; }
+
+    status.textContent = 'Connecting…';
+    try {
+      const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
+        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github+json' }
+      });
+      if (!res.ok) throw new Error(`GitHub error ${res.status}`);
+      const json = await res.json();
+      const fileContent = decodeURIComponent(escape(atob(json.content)));
+      const match = fileContent.match(/<script id="site-data" type="application\/json">([\s\S]*?)<\/script>/);
+      if (!match) throw new Error('Could not find site-data block in this file.');
+
+      gh = { token, owner, repo, path, branch, sha: json.sha, fullContent: fileContent };
+      workingData = JSON.parse(match[1]);
+
+      document.getElementById('adminGate').classList.add('hidden');
+      document.getElementById('adminEditor').classList.remove('hidden');
+      fillEditorFromData();
+      status.textContent = '';
+    } catch (err) {
+      status.textContent = 'Failed: ' + err.message;
+    }
+  });
+
+  document.getElementById('saveBtn').addEventListener('click', async () => {
+    const status = document.getElementById('saveStatus');
+    if (!gh) return;
+    collectEditorIntoData();
+    status.textContent = 'Publishing…';
+
+    try {
+      const newJsonBlock = JSON.stringify(workingData, null, 2);
+      const newFileContent = gh.fullContent.replace(
+        /(<script id="site-data" type="application\/json">)[\s\S]*?(<\/script>)/,
+        `$1\n${newJsonBlock}\n$2`
+      );
+      const b64 = btoa(unescape(encodeURIComponent(newFileContent)));
+
+      const res = await fetch(`https://api.github.com/repos/${gh.owner}/${gh.repo}/contents/${gh.path}`, {
+        method: 'PUT',
+        headers: { Authorization: `token ${gh.token}`, Accept: 'application/vnd.github+json' },
+        body: JSON.stringify({
+          message: 'Update site content via admin panel',
+          content: b64,
+          sha: gh.sha,
+          branch: gh.branch,
+        })
+      });
+      if (!res.ok) throw new Error(`GitHub error ${res.status}`);
+      const json = await res.json();
+      gh.sha = json.content.sha;
+      gh.fullContent = newFileContent;
+      status.textContent = 'Published. Live site will update in a minute or two.';
+    } catch (err) {
+      status.textContent = 'Failed: ' + err.message;
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
